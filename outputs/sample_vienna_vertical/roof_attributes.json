@@ -1,0 +1,658 @@
+[
+  {
+    "building_id": "building_001",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3602048,
+          48.2088294
+        ],
+        [
+          16.3602436,
+          48.2088221
+        ],
+        [
+          16.3602754,
+          48.2088344
+        ],
+        [
+          16.3603235,
+          48.208889
+        ],
+        [
+          16.3603342,
+          48.2089286
+        ],
+        [
+          16.3602909,
+          48.2089493
+        ],
+        [
+          16.36026,
+          48.2089491
+        ],
+        [
+          16.3602417,
+          48.2089388
+        ],
+        [
+          16.3601985,
+          48.208868
+        ],
+        [
+          16.3602048,
+          48.2088294
+        ]
+      ],
+      "area_m2": 211.78,
+      "type": "pitched",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 90.7,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 0
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.834,
+      "area": 0.792,
+      "type": 0.64,
+      "material": 0.714,
+      "orientation": 0.725,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_002",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3603336,
+          48.2090545
+        ],
+        [
+          16.3603566,
+          48.2090622
+        ],
+        [
+          16.3603782,
+          48.2091099
+        ],
+        [
+          16.3603806,
+          48.2091353
+        ],
+        [
+          16.3603736,
+          48.2091549
+        ],
+        [
+          16.3603361,
+          48.2091645
+        ],
+        [
+          16.3603001,
+          48.209152
+        ],
+        [
+          16.3602692,
+          48.2090848
+        ],
+        [
+          16.3603033,
+          48.2090623
+        ],
+        [
+          16.3603336,
+          48.2090545
+        ]
+      ],
+      "area_m2": 159.65,
+      "type": "pitched",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 90.8,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 0
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.856,
+      "area": 0.814,
+      "type": 0.64,
+      "material": 0.694,
+      "orientation": 0.708,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_003",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3554973,
+          48.2103833
+        ],
+        [
+          16.3555101,
+          48.2103841
+        ],
+        [
+          16.3555146,
+          48.2103884
+        ],
+        [
+          16.3555263,
+          48.2104155
+        ],
+        [
+          16.3555248,
+          48.21042
+        ],
+        [
+          16.3555005,
+          48.2104276
+        ],
+        [
+          16.3554868,
+          48.2104216
+        ],
+        [
+          16.3554716,
+          48.2103955
+        ],
+        [
+          16.3554788,
+          48.2103867
+        ],
+        [
+          16.3554973,
+          48.2103833
+        ]
+      ],
+      "area_m2": 30.88,
+      "type": "flat",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 90.0,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 0
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.88,
+      "area": 0.836,
+      "type": 0.48,
+      "material": 0.753,
+      "orientation": 0.465,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_004",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3587946,
+          48.2103856
+        ],
+        [
+          16.3588999,
+          48.2103762
+        ],
+        [
+          16.358921,
+          48.210409
+        ],
+        [
+          16.3589241,
+          48.2104355
+        ],
+        [
+          16.3588618,
+          48.2104448
+        ],
+        [
+          16.3588189,
+          48.210445
+        ],
+        [
+          16.3587855,
+          48.2104017
+        ],
+        [
+          16.3587946,
+          48.2103856
+        ]
+      ],
+      "area_m2": 136.92,
+      "type": "hipped",
+      "material": "tiled",
+      "orientation": "NE-SW",
+      "orientation_deg": 31.7,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 2
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.846,
+      "area": 0.804,
+      "type": 0.62,
+      "material": 0.713,
+      "orientation": 0.673,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_005",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3585667,
+          48.210491
+        ],
+        [
+          16.3587662,
+          48.2104709
+        ],
+        [
+          16.3588332,
+          48.2106176
+        ],
+        [
+          16.35863,
+          48.2106386
+        ],
+        [
+          16.3585667,
+          48.210491
+        ]
+      ],
+      "area_m2": 575.96,
+      "type": "hipped",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 73.0,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 28
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.871,
+      "area": 0.827,
+      "type": 0.62,
+      "material": 0.733,
+      "orientation": 0.622,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_006",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3588406,
+          48.2104612
+        ],
+        [
+          16.3589711,
+          48.2104494
+        ],
+        [
+          16.3590498,
+          48.2105247
+        ],
+        [
+          16.359068,
+          48.2105911
+        ],
+        [
+          16.3589064,
+          48.2106096
+        ],
+        [
+          16.3588357,
+          48.2104775
+        ],
+        [
+          16.3588406,
+          48.2104612
+        ]
+      ],
+      "area_m2": 469.4,
+      "type": "pitched",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 83.8,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 4
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.852,
+      "area": 0.81,
+      "type": 0.64,
+      "material": 0.717,
+      "orientation": 0.688,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_007",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3588563,
+          48.2106362
+        ],
+        [
+          16.3588815,
+          48.2107254
+        ],
+        [
+          16.3586603,
+          48.210747
+        ],
+        [
+          16.3586407,
+          48.2106605
+        ],
+        [
+          16.3588563,
+          48.2106362
+        ]
+      ],
+      "area_m2": 366.31,
+      "type": "pitched",
+      "material": "flat/gravel",
+      "orientation": "E-W",
+      "orientation_deg": 10.7,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 34
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.857,
+      "area": 0.814,
+      "type": 0.64,
+      "material": 0.53,
+      "orientation": 0.702,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_008",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.358909,
+          48.2106281
+        ],
+        [
+          16.3590662,
+          48.2106093
+        ],
+        [
+          16.3591113,
+          48.2106797
+        ],
+        [
+          16.3590939,
+          48.2106992
+        ],
+        [
+          16.3589374,
+          48.2107192
+        ],
+        [
+          16.3589147,
+          48.2106731
+        ],
+        [
+          16.358909,
+          48.2106281
+        ]
+      ],
+      "area_m2": 300.71,
+      "type": "pitched",
+      "material": "tiled",
+      "orientation": "E-W",
+      "orientation_deg": 10.0,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 2
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.856,
+      "area": 0.813,
+      "type": 0.64,
+      "material": 0.708,
+      "orientation": 0.674,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_009",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3618398,
+          48.210628
+        ],
+        [
+          16.3618512,
+          48.2106511
+        ],
+        [
+          16.3618489,
+          48.210679
+        ],
+        [
+          16.3618432,
+          48.2106832
+        ],
+        [
+          16.3618226,
+          48.210683
+        ],
+        [
+          16.361812,
+          48.2106789
+        ],
+        [
+          16.3618061,
+          48.2106723
+        ],
+        [
+          16.3617941,
+          48.2106412
+        ],
+        [
+          16.3618398,
+          48.210628
+        ]
+      ],
+      "area_m2": 42.32,
+      "type": "flat",
+      "material": "tiled",
+      "orientation": "N-S",
+      "orientation_deg": 96.7,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": false,
+        "count": 0
+      },
+      "superstructures": {
+        "count": 3
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.867,
+      "area": 0.824,
+      "type": 0.48,
+      "material": 0.811,
+      "orientation": 0.473,
+      "slope": 0.0,
+      "solar_panels": 0.46,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  },
+  {
+    "building_id": "building_010",
+    "source_used": "Georeferenced aerial GeoTIFF: sample_vienna_vertical.tif",
+    "roof": {
+      "polygon": [
+        [
+          16.3601567,
+          48.2106857
+        ],
+        [
+          16.3603513,
+          48.2108404
+        ],
+        [
+          16.3606136,
+          48.2118729
+        ],
+        [
+          16.3590135,
+          48.2122671
+        ],
+        [
+          16.3588069,
+          48.2120813
+        ],
+        [
+          16.3587721,
+          48.2112812
+        ],
+        [
+          16.359209,
+          48.2108089
+        ],
+        [
+          16.3601567,
+          48.2106857
+        ]
+      ],
+      "area_m2": 39995.08,
+      "type": "pitched",
+      "material": "green_roof",
+      "orientation": "NW-SE",
+      "orientation_deg": 130.5,
+      "slope_deg": null,
+      "solar_panels": {
+        "present": true,
+        "count": 6
+      },
+      "superstructures": {
+        "count": 150
+      },
+      "visible_condition": "no_obvious_issue_visible"
+    },
+    "confidence": {
+      "polygon": 0.842,
+      "area": 0.8,
+      "type": 0.64,
+      "material": 0.601,
+      "orientation": 0.652,
+      "slope": 0.0,
+      "solar_panels": 0.7,
+      "superstructures": 0.43,
+      "visible_condition": 0.4
+    },
+    "notes": "Polygon and planimetric area were derived from the GeoTIFF georeferencing. Slope is null because a single RGB orthophoto does not support a reliable slope measurement without elevation data. Type, material, solar panels, superstructures and visible condition are image-based heuristic estimates and must be reviewed when confidence is low."
+  }
+]

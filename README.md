@@ -1,96 +1,128 @@
 # Rooftop Detection and Attribute Extraction
 
-A small object-oriented Python 3.13 application for the PropX technical assessment. It reads a georeferenced aerial
-GeoTIFF, detects roof candidates, extracts roof attributes with confidence scores, and exports the results as JSON and
-overlay images.
+A small object-oriented Python 3.13 application for the PropX technical assessment. It reads one georeferenced aerial GeoTIFF, detects roof candidates, extracts roof attributes with confidence scores, and exports the results as JSON and overlay images.
 
-## Why the input must be a GeoTIFF
+## Input requirement
 
-A normal JPG or PNG contains pixels but normally has no map coordinates or physical scale. The required output contains
-roof polygons in longitude and latitude and roof areas in square metres. The input must therefore provide georeferencing
-information.
+The input must be a GeoTIFF containing at least three image bands, a coordinate reference system, and either an affine transform or ground-control points. A normal JPG or PNG is not accepted because it normally contains no geographic coordinates or physical scale.
 
-This implementation accepts a GeoTIFF containing at least three image bands, a coordinate reference system, and either
-an affine transform or ground-control points.
+## Build with Docker
 
-## Run with Docker
+Run this command once from the project root:
 
-Build the Docker image from the project root:
+```bash
+docker build --no-cache -t roof_analysis .
+```
+
+Later builds may use:
 
 ```bash
 docker build -t roof_analysis .
 ```
 
-### Interactive execution with the included sample
+## Run
 
-Run the container with an interactive terminal and mount the output directory:
+Run the application with:
 
 ```bash
-docker run --rm -it \
-  -v "$(pwd)/outputs:/app/outputs" \
-  roof_analysis
+./run.sh
 ```
 
-The program asks for:
-
-- the GeoTIFF image path;
-- the output directory;
-- the maximum number of buildings;
-- the minimum roof area in pixels.
-
-Press Enter to accept the displayed default values.
-
-Inside Docker, the included sample image is available at:
+The program asks for all processing values:
 
 ```text
-/app/data/sample_vienna.tif
+Absolute GeoTIFF image path [/absolute/project/path/data/sample_vienna.tif]:
+Absolute output root directory [/absolute/project/path/outputs]:
+Maximum number of buildings [10]:
+Minimum roof area in pixels [450]:
 ```
 
-After each analysis, the program asks:
+Press Enter to accept a displayed default value.
+
+After the analysis, the program asks:
 
 ```text
 Do you want to analyze another image? [y/N]:
 ```
 
-Enter `y` to process another image or press Enter to finish.
+Enter `y` to process another GeoTIFF or press Enter to exit.
 
-### Interactive execution with another GeoTIFF
+The image path must be absolute. For example:
 
-Mount the directory containing the input GeoTIFF as a read-only Docker volume:
+```text
+/home/donkarlo/Dropbox/repo/nd_spatial_perception_project/data/sample_vienna.tif
+```
+
+## Direct Docker command
+
+`run.sh` executes this command internally:
 
 ```bash
 docker run --rm -it \
-  -v "/absolute/path/to/input-directory:/app/input:ro" \
-  -v "$(pwd)/outputs:/app/outputs" \
+  -v "$PWD:$PWD" \
+  -w "$PWD" \
   roof_analysis
 ```
 
-When the program asks for the image path, enter the path inside the container, for example:
+The project is mounted at the same absolute path inside the container. Therefore, the same absolute image path is valid both on Ubuntu and inside Docker.
+
+## Output structure
+
+The selected output directory is treated as an output root. For every input image, the application creates a child directory whose name is the input filename without `.tif` or `.tiff`.
+
+For this input:
 
 ```text
-/app/input/orthophoto.tif
+/home/donkarlo/Dropbox/repo/nd_spatial_perception_project/data/sample_vienna.tif
 ```
 
-A host path such as:
+and the default output root, the result is:
 
 ```text
-/home/user/images/orthophoto.tif
+outputs/
+└── sample_vienna/
+    ├── roof_attributes.json
+    └── overlays/
+        ├── 00_all_roofs_overlay.jpg
+        ├── 01_building_001.jpg
+        ├── 02_building_002.jpg
+        └── ...
 ```
 
-is not automatically visible inside the container. The input directory must first be mounted as a Docker volume, as
-shown above.
+Before processing an image, only that image's existing output directory is deleted and recreated. Therefore, running the same filename again works normally and produces a completely new JSON file and new overlay images. Other image result directories inside `outputs/` are not deleted.
 
-### Non-interactive Docker execution
+For example:
 
-Arguments may also be supplied directly for a one-time execution:
+```text
+outputs/
+├── sample_vienna/
+├── vienna_orthophoto/
+└── graz_orthophoto/
+```
+
+Re-running `sample_vienna.tif` replaces only `outputs/sample_vienna/`.
+
+## Non-interactive Docker execution
+
+The absolute image path can be supplied directly:
 
 ```bash
 docker run --rm \
-  -v "/absolute/path/to/input-directory:/app/input:ro" \
-  -v "$(pwd)/outputs:/app/outputs" \
+  -v "$PWD:$PWD" \
+  -w "$PWD" \
   roof_analysis \
-  /app/input/orthophoto.tif \
-  --output /app/outputs \
+  "$PWD/data/sample_vienna.tif"
+```
+
+Optional values can also be supplied:
+
+```bash
+docker run --rm \
+  -v "$PWD:$PWD" \
+  -w "$PWD" \
+  roof_analysis \
+  "$PWD/data/sample_vienna.tif" \
+  --output "$PWD/outputs" \
   --max-buildings 10 \
   --min-area-px 450
 ```
@@ -105,137 +137,35 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Interactive execution
-
-Run the application without arguments:
+Run interactively:
 
 ```bash
 python src/nd_spatial_perception/__main__.py
 ```
 
-The application asks for the input path and processing options and offers to process another image after each run.
-
-### Non-interactive execution
-
-Run one analysis by supplying the input path and options directly:
+Or provide an absolute image path directly:
 
 ```bash
 python src/nd_spatial_perception/__main__.py \
-  data/sample_vienna.tif \
-  --output outputs \
-  --max-buildings 10 \
-  --min-area-px 450
-```
-
-For another image:
-
-```bash
-python src/nd_spatial_perception/__main__.py \
-  /absolute/path/to/orthophoto.tif \
-  --output outputs
-```
-
-The default values for omitted optional arguments are:
-
-```text
-output directory: outputs
-maximum buildings: 10
-minimum roof area: 450 pixels
-```
-
-## Outputs
-
-The application creates the following structure:
-
-```text
-outputs/
-├── roof_attributes.json
-└── overlays/
-    ├── 00_all_roofs_overlay.jpg
-    ├── 01_building_001.jpg
-    ├── 02_building_002.jpg
-    └── ...
-```
-
-Each JSON record follows this structure:
-
-```json
-{
-  "building_id": "building_001",
-  "source_used": "...",
-  "roof": {
-    "polygon": [
-      [16.0, 48.0]
-    ],
-    "area_m2": 0.0,
-    "type": "pitched",
-    "material": "tiled",
-    "orientation": "NE-SW",
-    "orientation_deg": 45.0,
-    "slope_deg": null,
-    "solar_panels": {
-      "present": false,
-      "count": 0
-    },
-    "superstructures": {
-      "count": 0
-    },
-    "visible_condition": "no_obvious_issue_visible"
-  },
-  "confidence": {
-    "polygon": 0.0,
-    "area": 0.0,
-    "type": 0.0,
-    "material": 0.0,
-    "orientation": 0.0,
-    "slope": 0.0,
-    "solar_panels": 0.0,
-    "superstructures": 0.0,
-    "visible_condition": 0.0
-  },
-  "notes": "..."
-}
+  "$PWD/data/sample_vienna.tif"
 ```
 
 ## Object-oriented design
 
-- `GeoTiffImageSource` reads the image and its georeferencing.
-- `MultiMaterialRoofDetector` finds roof-like regions from colour, shape, and edge evidence.
-- `RoofAttributeExtractor` calculates polygons, areas, and visual attributes.
+- `GeoTiffImageSource` reads and validates the image and its georeferencing.
+- `MultiMaterialRoofDetector` detects roof-like regions.
+- `RoofAttributeExtractor` extracts polygons, areas, and visual attributes.
 - `ResultExporter` writes JSON and overlay images.
 - `RoofAnalysisApplication` coordinates loading, detection, extraction, and export.
 
 ## Source selection and trade-offs
 
-The implementation uses a high-resolution aerial RGB GeoTIFF because a top-down orthophoto provides direct roof
-visibility and georeferencing for polygon and area calculation.
+The implementation uses a high-resolution aerial RGB GeoTIFF because a top-down orthophoto provides direct roof visibility and georeferencing for polygon and area calculation. It provides more building-level detail than medium-resolution satellite imagery and is easier to process reproducibly than street-level or oblique imagery.
 
-It is easier to process reproducibly than street-level or oblique imagery and provides substantially more building-level
-detail than medium-resolution satellite imagery.
-
-The main limitation is that one RGB orthophoto contains no direct elevation measurement. It therefore cannot support a
-reliable metric roof slope.
-
-Material, roof type, solar panels, superstructures, and visible condition are visual estimates and receive independent
-confidence scores.
-
-## What is and is not recoverable
-
-The roof polygon and planimetric area are derived from image segmentation and GeoTIFF georeferencing.
-
-Roof type, material, orientation, solar panels, superstructures, and visible condition are heuristic visual estimates.
-
-Exact roof slope is not defensible from one RGB orthophoto without an elevation source such as LiDAR, a digital surface
-model, stereo imagery, or a 3D city model.
-
-For that reason, `slope_deg` is `null` and its confidence is `0.0`.
+A single RGB orthophoto contains no direct elevation information. Therefore, exact metric roof slope cannot be calculated reliably. Roof type, material, orientation, solar panels, superstructures, and visible condition are heuristic visual estimates and receive separate confidence scores.
 
 ## Important limitation
 
-This is an explainable computer-vision baseline rather than a trained universal building-segmentation model.
+This implementation is an explainable computer-vision baseline rather than a trained universal building-segmentation model. It works best with high-resolution true orthophotos containing clearly visible roofs. Low-confidence results should be manually reviewed.
 
-It works best on high-resolution true orthophotos with clearly visible roofs. Low-confidence results should be manually
-reviewed.
-
-The included sample is a real Vienna aerial image with approximate demonstration georeferencing. A true orthophoto
-GeoTIFF should be used for metric production results.
+The included sample contains approximate demonstration georeferencing. A true orthophoto GeoTIFF should be used for metric production results.
