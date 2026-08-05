@@ -3,20 +3,28 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from building.kind.roof_analysis.application import RoofAnalysisApplication
-from building.kind.roof_analysis.attributes import RoofAttributeExtractor
-from building.kind.roof_analysis.detector import MultiMaterialRoofDetector
-from building.kind.roof_analysis.exporter import ResultExporter
-from building.kind.roof_analysis.image_source import GeoTiffImageSource
+from kind.building.kind.roof_analysis.application import RoofAnalysisApplication
+from kind.building.kind.roof_analysis.attributes import RoofAttributeExtractor
+from kind.building.kind.roof_analysis.detector import MultiMaterialRoofDetector
+from kind.building.kind.roof_analysis.exporter import ResultExporter
+from kind.building.kind.roof_analysis.image_source import (
+    GeoTiffImageSource,
+    GeoTiffValidationError,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+DEFAULT_IMAGE = PROJECT_ROOT / "data" / "sample_vienna.tif"
+DEFAULT_OUTPUT = PROJECT_ROOT / "outputs"
+DEFAULT_MAX_BUILDINGS = 10
+DEFAULT_MIN_AREA_PX = 450.0
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Detect roofs in one georeferenced aerial GeoTIFF and export "
-            "roof attributes as JSON."
+            "roof attributes as JSON. Run without arguments for interactive mode."
         )
     )
 
@@ -24,42 +32,79 @@ def parse_args() -> argparse.Namespace:
         "image",
         type=Path,
         nargs="?",
-        help="Path to a georeferenced GeoTIFF",
+        help="Path to a georeferenced RGB GeoTIFF",
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=None,
-        help="Output directory",
+        default=DEFAULT_OUTPUT,
+        help=f"Output directory (default: {DEFAULT_OUTPUT})",
     )
     parser.add_argument(
         "--max-buildings",
         type=int,
-        default=None,
-        help="Maximum number of detected buildings",
+        default=DEFAULT_MAX_BUILDINGS,
+        help=(
+            "Maximum number of detected buildings "
+            f"(default: {DEFAULT_MAX_BUILDINGS})"
+        ),
     )
     parser.add_argument(
         "--min-area-px",
         type=float,
-        default=None,
-        help="Minimum candidate area in pixels",
+        default=DEFAULT_MIN_AREA_PX,
+        help=(
+            "Minimum candidate area in pixels "
+            f"(default: {DEFAULT_MIN_AREA_PX:g})"
+        ),
     )
 
     return parser.parse_args()
 
 
-def ask_path(message: str, default: Path | None = None) -> Path:
+def resolve_path(path: Path) -> Path:
+    path = path.expanduser()
+
+    if path.is_absolute():
+        return path
+
+    return PROJECT_ROOT / path
+
+
+def ask_geotiff_path(
+        message: str,
+        default: Path | None = None,
+) -> Path:
     while True:
         default_text = f" [{default}]" if default is not None else ""
         value = input(f"{message}{default_text}: ").strip()
 
         if not value and default is not None:
-            return default
+            selected_path = default
+        elif value:
+            selected_path = Path(value)
+        else:
+            print("Error: an input path is required.")
+            continue
 
-        if value:
-            return Path(value).expanduser()
+        selected_path = resolve_path(selected_path)
 
-        print("A value is required.")
+        try:
+            GeoTiffImageSource.validate(selected_path)
+        except GeoTiffValidationError as error:
+            print()
+            print(f"Error: {error}")
+            print("Please select a valid georeferenced RGB GeoTIFF.")
+            print()
+            continue
+
+        return selected_path
+
+
+def ask_path(message: str, default: Path) -> Path:
+    value = input(f"{message} [{default}]: ").strip()
+    selected_path = Path(value) if value else default
+    return resolve_path(selected_path)
 
 
 def ask_int(message: str, default: int, minimum: int) -> int:
@@ -72,11 +117,11 @@ def ask_int(message: str, default: int, minimum: int) -> int:
         try:
             number = int(value)
         except ValueError:
-            print("Please enter a valid integer.")
+            print("Error: please enter a valid integer.")
             continue
 
         if number < minimum:
-            print(f"The value must be at least {minimum}.")
+            print(f"Error: the value must be at least {minimum}.")
             continue
 
         return number
@@ -84,7 +129,7 @@ def ask_int(message: str, default: int, minimum: int) -> int:
 
 def ask_float(message: str, default: float, minimum: float) -> float:
     while True:
-        value = input(f"{message} [{default}]: ").strip()
+        value = input(f"{message} [{default:g}]: ").strip()
 
         if not value:
             return default
@@ -92,72 +137,78 @@ def ask_float(message: str, default: float, minimum: float) -> float:
         try:
             number = float(value)
         except ValueError:
-            print("Please enter a valid number.")
+            print("Error: please enter a valid number.")
             continue
 
         if number <= minimum:
-            print(f"The value must be greater than {minimum}.")
+            print(f"Error: the value must be greater than {minimum:g}.")
             continue
 
         return number
 
 
-def complete_missing_args(args: argparse.Namespace) -> argparse.Namespace:
-    if args.image is None:
-        args.image = ask_path(
-            "GeoTIFF image path",
-        )
+def ask_yes_no(message: str, default: bool = False) -> bool:
+    default_text = "Y/n" if default else "y/N"
 
-    if args.output is None:
-        args.output = ask_path(
-            "Output directory",
-            default=PROJECT_ROOT / "outputs",
-        )
+    while True:
+        value = input(f"{message} [{default_text}]: ").strip().lower()
 
-    if args.max_buildings is None:
-        args.max_buildings = ask_int(
-            "Maximum number of buildings",
-            default=10,
-            minimum=1,
-        )
+        if not value:
+            return default
 
-    if args.min_area_px is None:
-        args.min_area_px = ask_float(
-            "Minimum roof area in pixels",
-            default=450.0,
-            minimum=0.0,
-        )
+        if value in {"y", "yes"}:
+            return True
 
-    return args
+        if value in {"n", "no"}:
+            return False
+
+        print("Error: please enter y or n.")
 
 
-def validate_args(args: argparse.Namespace) -> None:
-    if not args.image.exists():
-        raise SystemExit(f"Image file does not exist: {args.image}")
-
-    if not args.image.is_file():
-        raise SystemExit(f"Image path is not a file: {args.image}")
-
-    if args.image.suffix.lower() not in {".tif", ".tiff"}:
-        raise SystemExit("The input image must be a GeoTIFF file (.tif or .tiff).")
-
+def validate_numeric_args(args: argparse.Namespace) -> None:
     if args.max_buildings < 1:
-        raise SystemExit("--max-buildings must be at least 1")
+        raise ValueError("--max-buildings must be at least 1")
 
     if args.min_area_px <= 0:
-        raise SystemExit("--min-area-px must be positive")
+        raise ValueError("--min-area-px must be positive")
 
 
-def main() -> None:
-    args = complete_missing_args(parse_args())
+def create_interactive_args() -> argparse.Namespace:
+    image = ask_geotiff_path(
+        "GeoTIFF image path",
+        default=DEFAULT_IMAGE,
+    )
 
-    if not args.output.is_absolute():
-        args.output = PROJECT_ROOT / args.output
+    return argparse.Namespace(
+        image=image,
+        output=ask_path(
+            "Output directory",
+            default=DEFAULT_OUTPUT,
+        ),
+        max_buildings=ask_int(
+            "Maximum number of buildings",
+            default=DEFAULT_MAX_BUILDINGS,
+            minimum=1,
+        ),
+        min_area_px=ask_float(
+            "Minimum roof area in pixels",
+            default=DEFAULT_MIN_AREA_PX,
+            minimum=0.0,
+        ),
+    )
 
-    validate_args(args)
+
+def run_analysis(args: argparse.Namespace) -> None:
+    args.image = resolve_path(args.image)
+    args.output = resolve_path(args.output)
+
+    validate_numeric_args(args)
+
+    image_source = GeoTiffImageSource()
+    image_source.validate(args.image)
 
     application = RoofAnalysisApplication(
-        image_source=GeoTiffImageSource(),
+        image_source=image_source,
         detector=MultiMaterialRoofDetector(
             min_area_px=args.min_area_px,
         ),
@@ -177,8 +228,42 @@ def main() -> None:
     print(f"Overlays: {args.output / 'overlays'}")
 
 
+def run_interactive() -> None:
+    print("Interactive roof analysis")
+    print("Press Enter to accept each value shown in brackets.")
+
+    while True:
+        print()
+        args = create_interactive_args()
+
+        try:
+            run_analysis(args)
+        except (GeoTiffValidationError, OSError, RuntimeError, ValueError) as error:
+            print()
+            print(f"Analysis failed: {error}")
+
+        print()
+
+        if not ask_yes_no("Do you want to analyze another image?"):
+            print("Finished.")
+            return
+
+
+def main() -> None:
+    args = parse_args()
+
+    if args.image is None:
+        try:
+            run_interactive()
+        except (EOFError, KeyboardInterrupt):
+            print("\nFinished.")
+        return
+
+    try:
+        run_analysis(args)
+    except (GeoTiffValidationError, OSError, RuntimeError, ValueError) as error:
+        raise SystemExit(f"Error: {error}") from error
+
+
 if __name__ == "__main__":
-    sample_path = (
-        "/home/donkarlo/Dropbox/repo/nd_spatial_perception_project/data/sample_vienna.tif"
-    )
     main()

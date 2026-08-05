@@ -12,10 +12,10 @@ class RoofAttributeExtractor:
     """Extracts conservative roof attributes and per-attribute confidence."""
 
     def extract(
-        self,
-        geo_image: GeoImage,
-        candidate: RoofCandidate,
-        index: int,
+            self,
+            geo_image: GeoImage,
+            candidate: RoofCandidate,
+            index: int,
     ) -> RoofResult:
         contour = candidate.contour
         polygon_px = self._simplify_contour(contour)
@@ -104,7 +104,7 @@ class RoofAttributeExtractor:
 
     @staticmethod
     def _classify_material(
-        image: np.ndarray, mask: np.ndarray
+            image: np.ndarray, mask: np.ndarray
     ) -> tuple[str, float]:
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -268,7 +268,7 @@ class RoofAttributeExtractor:
 
     @staticmethod
     def _detect_solar_panels(
-        image: np.ndarray, roof_mask: np.ndarray
+            image: np.ndarray, roof_mask: np.ndarray
     ) -> tuple[int, float]:
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         dark_blue = cv2.inRange(
@@ -294,7 +294,7 @@ class RoofAttributeExtractor:
 
     @staticmethod
     def _detect_superstructures(
-        image: np.ndarray, roof_mask: np.ndarray
+            image: np.ndarray, roof_mask: np.ndarray
     ) -> tuple[int, float]:
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         roof_values = gray[roof_mask > 0]
@@ -322,7 +322,7 @@ class RoofAttributeExtractor:
 
     @staticmethod
     def _visible_condition(
-        image: np.ndarray, roof_mask: np.ndarray
+            image: np.ndarray, roof_mask: np.ndarray
     ) -> tuple[str, float]:
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         values = gray[roof_mask > 0]
@@ -344,9 +344,9 @@ class RoofAttributeExtractor:
 
     @staticmethod
     def _build_notes(
-        georeference_quality: str,
-        roof_type: str,
-        material: str,
+            georeference_quality: str,
+            roof_type: str,
+            material: str,
     ) -> str:
         notes = [
             "Polygon and planimetric area were derived from the GeoTIFF georeferencing.",

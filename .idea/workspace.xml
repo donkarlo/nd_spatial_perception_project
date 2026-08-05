@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04a448a2-c671-4726-981c-781695029f94" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/roof_analyzer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/application.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/attributes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/detector.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/exporter.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/georeferencing.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/image_source.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roof_analysis/models.py" beforeDir="false" />
+    <list default="true" id="9d9a7b94-7333-4cba-a432-4941e4f057b9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/nd_spatial_perception.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nd_spatial_perception.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,10 +18,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3,
-  "fromUser": false
+  "associatedIndex": 3
 }]]></component>
-  <component name="ProjectId" id="3HSKfSfBs3949x0toKpNr7joi3Z" />
+  <component name="ProjectId" id="3HVWbg4cSneFo8fzg5SXlrkXamw" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -43,15 +34,14 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/home/donkarlo/Dropbox/repo/nd_spatial_perception_project",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="RunManager">
     <configuration default="true" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory">
       <steps>
-        <latexmkCompile id="898a31b3-fd1a-4d2e-a87d-27ebae9460e2" />
-        <pdfViewer id="42f07e6f-930a-491e-a7d8-09690cb3373e" />
+        <latexmkCompile id="33a0c92f-c4df-4770-aad5-4799fc51e8e7" />
+        <pdfViewer id="77975332-f27d-4506-8403-16f844826df6" />
       </steps>
       <method v="2" />
     </configuration>
@@ -65,12 +55,12 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="04a448a2-c671-4726-981c-781695029f94" name="Changes" comment="" />
-      <created>1785856133124</created>
+      <changelist id="9d9a7b94-7333-4cba-a432-4941e4f057b9" name="Changes" comment="" />
+      <created>1785953790313</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1785856133124</updated>
-      <workItem from="1785856134170" duration="186000" />
+      <updated>1785953790313</updated>
+      <workItem from="1785953791314" duration="19000" />
     </task>
     <servers />
   </component>
