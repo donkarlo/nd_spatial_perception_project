@@ -1,39 +1,21 @@
-# Environment files
-**/.env
-**/.env.*
-
 # Python
-**/.venv/
-**/__pycache__/
-**/*.pyc
-**/*.py[cod]
-**/*$py.class
-src/*.egg-info/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
 
-# Python caches
-**/.mypy_cache/
-**/.pytest_cache/
+# IDE
+.idea/
+.vscode/
 
-# PyCharm
-**/.idea/
+# Generated data and results
+data/*.tif
+data/*.tiff
+data/*.geojson
+data/*.json
+outputs/
 
-# LaTeX cache
-**/.livelatex-cache/
-
-# LaTeX auxiliary files
-**/*.aux
-**/*.log
-**/*.out
-**/*.gz
-
-# Graphviz generated files
-**/*.dot
-
-# Generated PDFs
-**/*.pdf
-
-# Root directories
-/out/
-/dist/
-/configs/
-/config/
+# OS
+.DS_Store

@@ -1,53 +1,44 @@
-[project.scripts]
-robotix = "nd_spatial_perception.__main__:main"
-
 [build-system]
-requires = ["setuptools>=64", "wheel"]
+requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nd_spatial_perception"
+name = "roof-analysis"
 version = "1.0.0"
+description = "Rooftop detection and attribute extraction by fusing a georeferenced orthophoto with open building footprints."
+requires-python = ">=3.13"
 dependencies = [
-    "ruamel.yaml>=0.17.40,<0.18",
-    # optional but faster on CPython < 3.13:
-    "ruamel.yaml.clib>=0.2.7; python_version<'3.13' and platform_python_implementation=='CPython'",
+    "numpy>=2.0,<3.0",
+    "opencv-python-headless>=4.10,<5.0",
+    "rasterio>=1.4,<2.0",
+    "shapely>=2.0,<3.0",
+    "pyproj>=3.6,<4.0",
+    "requests>=2.32,<3.0",
 ]
 
-# for development environment: pip install -e .[dev]
+[project.scripts]
+roof-analysis = "roof_analysis.__main__:main"
+roof-analysis-download-samples = "roof_analysis.sample_download:main"
+
 [project.optional-dependencies]
 dev = [
-    "mypy>=1.10",
-    "build>=1.2.1", # convenience: lets you run `python -m build`
+    "pytest>=8.3,<9.0",
+    "mypy>=1.13,<2.0",
 ]
 
-[tool.mypy]
-python_version = "3.13"
-
-# force describer hints for args + return types everywhere
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-
-# allow missing describer stubs from external libs
-ignore_missing_imports = true
-
-# project layout
-mypy_path = ["./src"]
-namespace_packages = true
-explicit_package_bases = true
-
-# only check these
-files = ["nd_spatial_perception", "tests"]
-
-# exclude pytest conftest files
-exclude = '(^|/)conftest\.py$'
-
 [tool.setuptools]
-package-dir = { "" = "src" }     # explicit src-layout
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-ra --tb=short --strict-markers -s"
 testpaths = ["tests"]
+addopts = "-q"
+
+[tool.mypy]
+python_version = "3.13"
+files = ["src/roof_analysis"]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+ignore_missing_imports = true
